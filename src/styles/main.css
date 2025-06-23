@@ -11,3 +11,11 @@
 
   @apply bg-gray-100 dark:bg-gray-900;
 }
+
+.loader {
+  @apply box-border inline-block;
+
+  @apply rounded-[50%] border-[5px] border-solid border-white border-b-gray-800;
+
+  @apply animate-spin;
+}

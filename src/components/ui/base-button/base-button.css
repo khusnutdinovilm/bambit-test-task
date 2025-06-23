@@ -1,0 +1,25 @@
+@reference "tailwindcss";
+
+.base-button {
+  @apply flex items-center justify-center gap-1.5;
+  @apply cursor-pointer rounded-lg p-2.5;
+}
+
+.base-button--loading {
+  @apply pointer-events-none;
+}
+
+.base-button--primary {
+  @apply bg-blue-600 hover:bg-blue-700 active:bg-blue-800;
+}
+
+.base-button[disabled] {
+  @apply cursor-default;
+  @apply bg-blue-950;
+}
+
+.base-button__loader {
+  @apply h-4 w-4;
+
+  @apply border-[3px];
+}
