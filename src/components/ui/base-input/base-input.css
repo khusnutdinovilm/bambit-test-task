@@ -1,0 +1,22 @@
+@reference "tailwindcss";
+
+.base-input {
+  @apply flex flex-col gap-1.5;
+}
+
+.base-input__label {
+  @apply pl-3;
+}
+
+.base-input__field {
+  @apply rounded-lg border-1 px-3 py-2 shadow-sm;
+
+  @apply border-gray-300 bg-white text-gray-900;
+  @apply dark:border-gray-600 dark:bg-gray-700 dark:text-gray-100;
+
+  @apply hover:border-gray-400;
+
+  @apply focus:border-blue-500 focus:ring-1 focus:ring-blue-500 focus:outline-none;
+
+  @apply transition duration-300;
+}
