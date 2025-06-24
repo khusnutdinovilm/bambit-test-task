@@ -1,9 +1,9 @@
 <template>
-  <app-header class="sticky top-0" />
+  <app-header />
 
-  <main class="flex flex-grow flex-col"></main>
+  <main class="container grow"></main>
 </template>
 
 <script setup lang="ts">
-import AppHeader from "./components/common/app-header";
+import AppHeader from "common/app-header";
 </script>

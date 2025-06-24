@@ -11,7 +11,7 @@
 }
 
 #app {
-  @apply flex min-h-screen flex-col;
+  @apply flex min-h-screen flex-col gap-5;
 
   @apply bg-gray-100 dark:bg-gray-900;
 }
@@ -25,5 +25,5 @@
 }
 
 .container {
-  @apply mx-auto px-4 md:max-w-2xl md:p-0 lg:max-w-4xl xl:max-w-5xl;
+  @apply mx-auto px-4 md:max-w-2xl md:px-0 lg:max-w-4xl xl:max-w-5xl;
 }
