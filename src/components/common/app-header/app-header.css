@@ -1,0 +1,19 @@
+@reference "tailwindcss";
+
+.app-header {
+  @apply py-4;
+  @apply border-b;
+  @apply shadow-lg;
+}
+
+.app-header__wrapper {
+  @apply flex items-center justify-between;
+}
+
+.app-header__theme-switcher {
+  @apply fixed right-4 bottom-4 md:static;
+}
+
+.app-header__search-form {
+  @apply grow md:grow-0 md:self-end;
+}
