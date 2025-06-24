@@ -1,5 +1,7 @@
 @reference "tailwindcss";
 
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
 .base-button {
   @apply flex items-center justify-center gap-1.5;
   @apply cursor-pointer rounded-lg p-2.5;
