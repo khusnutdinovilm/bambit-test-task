@@ -1,0 +1,23 @@
+@reference "tailwindcss";
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+.app-search {
+  @apply flex;
+}
+
+.app-search .base-input {
+  @apply flex-grow md:flex-grow-0;
+}
+
+.app-search .base-input__field {
+  @apply rounded-r-none border-r-0;
+  @apply min-w-full md:min-w-xl;
+}
+
+.app-search .base-button {
+  @apply flex shrink-0 rounded-l-none;
+}
+
+.app-search .base-button svg {
+  @apply size-5;
+}
