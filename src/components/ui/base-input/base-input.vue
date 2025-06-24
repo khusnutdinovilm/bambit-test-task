@@ -4,7 +4,13 @@
       {{ label }}
     </label>
 
-    <input :id="id" v-model="inputValue" type="text" class="base-input__field" />
+    <input
+      :id="id"
+      v-model="inputValue"
+      type="text"
+      :placeholder="placeholder"
+      class="base-input__field"
+    />
   </div>
 </template>
 
