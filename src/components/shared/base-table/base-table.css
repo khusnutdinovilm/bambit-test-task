@@ -1,0 +1,32 @@
+@reference "tailwindcss";
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+.base-table {
+}
+
+.base-table table {
+  @apply w-full table-fixed;
+}
+
+.base-table th,
+.base-table td {
+  @apply border p-1.5;
+}
+
+.base-table__head-cell {
+  @apply flex items-center justify-center gap-2;
+}
+
+.base-table__head-cell span:first-child,
+.base-table td {
+  @apply overflow-hidden text-ellipsis whitespace-nowrap;
+}
+
+.base-table__body {
+  @apply overflow-auto;
+}
+
+.base-table__loader {
+  @apply flex items-center justify-center py-4;
+}
