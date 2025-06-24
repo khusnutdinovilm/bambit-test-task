@@ -3,14 +3,29 @@
     <table ref="baseTableHeadRef" class="base-table__head">
       <thead>
         <tr>
-          <th v-for="column in columns" :key="column.key">
+          <th
+            v-for="column in columns"
+            :key="column.key"
+            :class="{ 'cursor-pointer': column.sortable }"
+            @click="handleSort(column.key)"
+          >
             <div class="base-table__head-cell">
               <span>
                 {{ column.label }}
               </span>
 
               <span v-if="column.sortable">
-                <arrows-up-down-icon class="size-5" />
+                <arrows-up-down-icon
+                  v-if="!sortParams || sortParams?.key !== column.key"
+                  class="size-5"
+                />
+                <template v-else>
+                  <arrow-long-up-icon
+                    v-if="sortParams.asc && sortParams.key === column.key"
+                    class="size-5"
+                  />
+                  <arrow-long-down-icon v-else class="size-5" />
+                </template>
               </span>
             </div>
           </th>
@@ -37,44 +52,31 @@
 </template>
 
 <script setup lang="ts" generic="D">
-import { onMounted, ref } from "vue";
+import { computed, onMounted, ref } from "vue";
 
-import { ArrowsUpDownIcon } from "@heroicons/vue/16/solid";
+import { ArrowLongDownIcon, ArrowLongUpIcon, ArrowsUpDownIcon } from "@heroicons/vue/16/solid";
 
-interface TableColumn<T> {
-  key: keyof T;
-  label: string;
-  sortable?: boolean;
-}
+import type { IBaseTableEmits, IBaseTableProps, SortParams } from "./types";
 
 defineOptions({
   name: "app-table",
 });
 
-const props = defineProps<{
-  columns: TableColumn<D>[];
-  rows: D[];
-  isLoadMoreContent?: boolean;
-  maxPageCount: number;
-  currentPage: number;
-}>();
-
-const emit = defineEmits<{
-  (e: "load-more"): void;
-}>();
+const props = defineProps<IBaseTableProps<D>>();
+const emit = defineEmits<IBaseTableEmits<D>>();
 
 const baseTableRef = ref<HTMLDivElement | null>(null);
 const baseTableHeadRef = ref<HTMLDivElement | null>(null);
 const baseTableBodyRef = ref<HTMLDivElement | null>(null);
 
-const getTableBodyHeight = () => {
-  const tableHeight = baseTableRef.value?.clientHeight || 600;
-  const tableHeadHeight = baseTableHeadRef.value?.clientHeight || 37;
-  return tableHeight - tableHeadHeight;
-};
+const isStopLoadData = computed(
+  () => props.currentPage === props.maxPageCount || props.isLoadMoreContent,
+);
 
 onMounted(() => {
-  const tableBodyHeight = getTableBodyHeight();
+  const tableHeight = baseTableRef.value?.clientHeight || 600;
+  const tableHeadHeight = baseTableHeadRef.value?.clientHeight || 37;
+  const tableBodyHeight = tableHeight - tableHeadHeight;
 
   if (baseTableBodyRef.value) {
     baseTableBodyRef.value.style.height = `${tableBodyHeight}px`;
@@ -82,13 +84,22 @@ onMounted(() => {
 });
 
 const handleScroll = () => {
+  if (isStopLoadData.value) return;
   if (!baseTableBodyRef.value) return;
-  if (props.isLoadMoreContent) return;
 
   const { scrollTop, scrollHeight, clientHeight } = baseTableBodyRef.value;
 
   if (scrollTop + clientHeight >= scrollHeight - 50) {
-    emit("load-more");
+    emit("load-more", props.currentPage + 1);
   }
+};
+
+const handleSort = (key: keyof D) => {
+  const params: SortParams<D> = {
+    key,
+    asc: !props.sortParams?.asc,
+  };
+
+  emit("sort-by", params);
 };
 </script>
