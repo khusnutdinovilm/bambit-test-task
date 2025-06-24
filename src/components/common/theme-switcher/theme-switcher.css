@@ -1,0 +1,10 @@
+@reference "tailwindcss";
+
+.theme-switcher {
+  @apply rounded-xl border-1;
+  @apply cursor-pointer p-2;
+}
+
+.theme-switcher svg {
+  @apply size-5;
+}
