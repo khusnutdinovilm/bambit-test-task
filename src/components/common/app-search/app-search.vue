@@ -19,14 +19,24 @@ import BaseButton from "ui/base-button";
 import BaseInput from "ui/base-input";
 
 import { MagnifyingGlassIcon } from "@heroicons/vue/16/solid";
+import usePhotoStore from "stores/use-photo-store";
 
 defineOptions({
   name: "app-search",
 });
 
+const photoStore = usePhotoStore();
+
 const searchQuery = ref("");
 
-const onSearch = () => {
-  console.log("on-search: ", searchQuery.value);
+const onSearch = async () => {
+  const filteredSearchQuery = getFilteredSearchQuery();
+
+  await photoStore.loadPhotos(filteredSearchQuery);
+};
+
+const getFilteredSearchQuery = () => {
+  const filteredSearchQuery = searchQuery.value.split(" ").filter(item => Number(item));
+  return Array.from(new Set(filteredSearchQuery).values());
 };
 </script>
